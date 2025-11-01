@@ -18,4 +18,11 @@ words = [
 
 @router.get("/word", response_model=WordResponse)
 def get_random_word():
-    ... 
+    if not words:
+        raise HTTPException(
+            status_code=404,
+            detail="No words available in database"
+        )
+   
+    random_word = random.choice(words)
+    return random_word

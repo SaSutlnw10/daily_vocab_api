@@ -1,22 +1,23 @@
 from fastapi import FastAPI
-
+from app.schemas import WordResponse
+ 
 # Initialize FastAPI app
 app = FastAPI(
     title="Vocabulary Practice API",
     version="1.0.0",
     description="API for vocabulary practice and learning"
 )
-
-@app.get("/api/word")
+ 
+@app.get("/api/word", response_model=WordResponse)
 def get_random_word():
     """Get a random word"""
     # TODO Write logic here....
-    return {
-        "word": "example",
-        "definition": "a representative form or pattern",
-        "difficulty_level": "Beginner"
-    }
-
+    return WordResponse(
+        id=12,
+        word='book',
+        definition='Reading material',
+        difficulty_level='Beginner'
+    )
 @app.get("/")
 def read_root():
     return {
